@@ -196,6 +196,63 @@
       .stat .kind.org { background: var(--gold-soft); color: var(--gold); }
       .stats-note { margin-top: 26px; color: var(--muted); font-size: 0.92rem; max-width: 62em; }
 
+      /* ---------- Soupers-rencontres ---------- */
+      .soupers {
+        background:
+          radial-gradient(640px 300px at 8% 0%, var(--gold-soft), transparent 62%),
+          radial-gradient(720px 340px at 96% 12%, var(--rose-soft), transparent 58%),
+          var(--surface-2);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .soupers-lead { max-width: 720px; }
+      .soupers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px; }
+      .souper-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 28px 26px;
+      }
+      .souper-card .kicker {
+        display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+        color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 11px; margin-bottom: 12px;
+      }
+      .souper-card .kicker.rose { color: var(--wine); background: var(--rose-soft); }
+      .souper-card h3 { margin: 0 0 10px; font-size: 1.35rem; line-height: 1.25; }
+      .souper-card p { margin: 0; color: var(--muted); }
+      .souper-card p strong { color: var(--ink); }
+      .souper-card ul { margin: 12px 0 0; padding-left: 1.15em; color: var(--muted); }
+      .souper-card ul li { margin-bottom: 6px; }
+      .souper-card ul li::marker { color: var(--rose); }
+      .deroulement-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 34px 0 18px; }
+      .deroulement-head h3 { margin: 0; font-size: 1.5rem; }
+      .deroulement-head p { margin: 0; color: var(--muted); }
+      .deroulement { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; list-style: none; margin: 0; padding: 0; counter-reset: etape; }
+      .deroulement li {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 20px 18px;
+        position: relative;
+      }
+      .deroulement .etape-num {
+        font-family: "Playfair Display", serif; font-style: italic; font-size: 1.9rem; line-height: 1; color: var(--rose); display: block; margin-bottom: 8px;
+      }
+      .deroulement strong { display: block; font-size: 1.05rem; margin-bottom: 5px; color: var(--ink); }
+      .deroulement span { color: var(--muted); font-size: 0.97rem; line-height: 1.5; display: block; }
+      .soupers-bas { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 22px; margin-top: 22px; align-items: stretch; }
+      .reperes { background: var(--wine-deep); color: #fdf1e7; border-radius: var(--radius); padding: 28px 26px; }
+      @media (prefers-color-scheme: dark) { .reperes { background: var(--surface); border: 1px solid var(--line); color: var(--ink); } }
+      .reperes h3 { margin: 0 0 14px; font-size: 1.3rem; color: #fff; }
+      @media (prefers-color-scheme: dark) { .reperes h3 { color: var(--ink); } }
+      .reperes ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+      .reperes li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
+      .reperes .r-num { font-family: "Playfair Display", serif; font-weight: 800; font-size: 1.45rem; line-height: 1; color: var(--gold-soft); flex: none; min-width: 74px; }
+      @media (prefers-color-scheme: dark) { .reperes .r-num { color: var(--gold); } }
+      .reperes p { margin: 0; font-size: 0.98rem; opacity: 0.92; }
+      .villes-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 26px; display: flex; flex-direction: column; }
+      .villes-card h3 { margin: 0 0 8px; font-size: 1.3rem; }
+      .villes-card > p { margin: 0 0 16px; color: var(--muted); }
+      .villes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+      .villes span { border: 1.5px solid var(--wine); color: var(--wine); border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: 0.95rem; background: var(--rose-soft); }
+      .villes-card .cta-row { margin-top: auto; }
+      .villes-card .note-dates { font-size: 0.9rem; color: var(--muted); margin-top: 12px; }
+
       /* ---------- Test ---------- */
       .test-card {
         background: var(--surface); border: 1px solid var(--line);
@@ -328,7 +385,7 @@
 
       @media (max-width: 860px) {
         .hero-grid { grid-template-columns: 1fr; padding: 40px 0 48px; gap: 30px; }
-        .steps, .events, .stats-grid { grid-template-columns: 1fr; }
+        .steps, .events, .stats-grid, .soupers-grid, .deroulement, .soupers-bas { grid-template-columns: 1fr; }
         section { padding: 48px 0; }
         .hero-card { left: 10px; }
         .bar-row { grid-template-columns: 92px 1fr 50px; }
@@ -506,6 +563,111 @@
         </div>
 
         <p class="stats-note">Statistiques consultées le 24 novembre 2026 sur les pages des sources. Les chiffres marqués « Étude indépendante » proviennent de recherches universitaires ou d'instituts de sondage reconnus ; ceux marqués « Chiffre d'organisateur » sont publiés par les entreprises qui vendent ces événements.</p>
+      </div>
+    </section>
+
+    <!-- ================= SOUPERS-RENCONTRES ================= -->
+    <section class="soupers" id="soupers" aria-labelledby="titre-soupers">
+      <div class="wrap">
+        <div class="section-head soupers-lead">
+          <div class="flourish left" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <h2 id="titre-soupers">Les soupers-rencontres</h2>
+          <p>La version longue des soirées Sept Minutes — pour celles et ceux qui veulent prendre le temps, autour d'une belle table.</p>
+        </div>
+
+        <div class="soupers-grid">
+          <article class="souper-card">
+            <span class="kicker rose">Le format</span>
+            <h3>Un vrai souper assis, aux chandelles</h3>
+            <p>Ici, pas de rencontres de 7 minutes qui s'enchaînent. Un <strong>souper assis entre célibataires</strong>, aux chandelles, pour prendre le temps de se découvrir autour d'un repas, d'une conversation qui se déploie et de regards qui durent plus qu'un chronomètre.</p>
+            <p style="margin-top:10px;">Même ambiance feutrée et romantique que nos soirées, même exigence de courtoisie — réservé aux <strong>21 ans et plus</strong> — mais dans le temps long d'un repas partagé.</p>
+          </article>
+
+          <article class="souper-card">
+            <span class="kicker">La différence Sept Minutes</span>
+            <h3>Personne n'est placé au hasard</h3>
+            <p>Les convives de chaque table sont <strong>jumelés à partir de vos résultats aux deux tests du site</strong> : le test de QI express et le test d'amour en 10 questions.</p>
+            <ul>
+              <li>Votre style amoureux et vos affinités guident la composition des tables.</li>
+              <li>Vous êtes assis avec des personnes déjà compatibles sur le papier.</li>
+              <li>Le souper fait le reste : la conversation, en personne.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="deroulement-head">
+          <h3>Déroulement d'un souper-rencontre</h3>
+          <p>Une soirée pensée pour multiplier les rencontres, sans précipitation.</p>
+        </div>
+        <ol class="deroulement">
+          <li>
+            <span class="etape-num">1</span>
+            <strong>Accueil et verre de bienvenue</strong>
+            <span>Vous êtes accueilli, on vous présente la soirée et vous recevez votre place pour la première table.</span>
+          </li>
+          <li>
+            <span class="etape-num">2</span>
+            <strong>Tables de 6 convives</strong>
+            <span>3 femmes et 3 hommes par table, composées selon les compatibilités issues de vos deux tests.</span>
+          </li>
+          <li>
+            <span class="etape-num">3</span>
+            <strong>Souper en 3 services</strong>
+            <span>Entrée, plat principal et dessert : le repas rythme la soirée et laisse à chaque conversation le temps de s'installer.</span>
+          </li>
+          <li>
+            <span class="etape-num">4</span>
+            <strong>Rotation douce entre les services</strong>
+            <span>Entre chaque service, les hommes changent de table pour rencontrer d'autres convives — de nouvelles conversations, sans bousculade.</span>
+          </li>
+          <li>
+            <span class="etape-num">5</span>
+            <strong>La carte de match</strong>
+            <span>À la fin du souper, chacun remplit sa carte de match et indique en toute discrétion les personnes qu'il souhaite revoir.</span>
+          </li>
+          <li>
+            <span class="etape-num">6</span>
+            <strong>Matchs dévoilés après la soirée</strong>
+            <span>Les matchs mutuels sont dévoilés après la soirée. Les coordonnées s'échangent seulement si le match est mutuel, des deux côtés.</span>
+          </li>
+        </ol>
+
+        <div class="soupers-bas">
+          <div class="reperes" aria-labelledby="titre-reperes">
+            <h3 id="titre-reperes">Le format, en repères</h3>
+            <ul>
+              <li>
+                <span class="r-num">28–59 ans</span>
+                <p>Les soupers de célibataires réunissent par groupes d'âge — par exemple 28-35 ans, 36-42 ans et 45-59 ans — pour des tables où l'on se ressemble.</p>
+              </li>
+              <li>
+                <span class="r-num">12 matchs</span>
+                <p>Un souper montréalais récent de ce type a produit 12 matchs en une seule soirée.</p>
+              </li>
+              <li>
+                <span class="r-num">98</span>
+                <p>À Montréal, des soupers de célibataires ont réuni 98 participants en un seul mois — la preuve que le format en personne attire.</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="villes-card">
+            <h3>Bientôt près de chez vous</h3>
+            <p>Les soupers-rencontres Sept Minutes arrivent dans trois villes. Les dates seront annoncées bientôt — les premiers jumelages partiront des tests déjà passés.</p>
+            <div class="villes" aria-label="Villes des soupers-rencontres">
+              <span>Montréal</span>
+              <span>Québec</span>
+              <span>Longueuil</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#qi">Passer le test de QI express</a>
+              <a class="btn btn-ghost" href="#test">Passer le test d'amour</a>
+            </div>
+            <p class="note-dates">Passez les deux tests dès maintenant pour être jumelé dès le premier souper. Dates annoncées bientôt.</p>
+          </div>
+        </div>
       </div>
     </section>
 
