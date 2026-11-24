@@ -173,6 +173,29 @@
       .event p { margin: 0; color: var(--muted); }
       .event .places { margin-top: 12px; font-size: 0.92rem; font-weight: 600; color: var(--wine); }
 
+      /* ---------- Statistiques ---------- */
+      .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .stat {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 26px 24px;
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .stat .big {
+        font-family: "Playfair Display", serif; font-weight: 800;
+        font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1; color: var(--wine);
+      }
+      .stat p { margin: 0; }
+      .stat .src { margin-top: auto; padding-top: 10px; font-size: 0.86rem; color: var(--muted); }
+      .stat .src a { color: var(--gold); font-weight: 600; text-decoration: none; }
+      .stat .src a:hover { text-decoration: underline; }
+      .stat .kind {
+        align-self: flex-start; border-radius: 999px; padding: 2px 11px;
+        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.03em;
+        background: var(--rose-soft); color: var(--wine);
+      }
+      .stat .kind.org { background: var(--gold-soft); color: var(--gold); }
+      .stats-note { margin-top: 26px; color: var(--muted); font-size: 0.92rem; max-width: 62em; }
+
       /* ---------- Test ---------- */
       .test-card {
         background: var(--surface); border: 1px solid var(--line);
@@ -305,7 +328,7 @@
 
       @media (max-width: 860px) {
         .hero-grid { grid-template-columns: 1fr; padding: 40px 0 48px; gap: 30px; }
-        .steps, .events { grid-template-columns: 1fr; }
+        .steps, .events, .stats-grid { grid-template-columns: 1fr; }
         section { padding: 48px 0; }
         .hero-card { left: 10px; }
         .bar-row { grid-template-columns: 92px 1fr 50px; }
@@ -403,6 +426,86 @@
             <p class="places">12 femmes · 12 hommes — 25 $ l'entrée</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= STATISTIQUES ================= -->
+    <section id="chiffres" aria-labelledby="titre-chiffres">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="flourish left" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <h2 id="titre-chiffres">Les rencontres, en chiffres</h2>
+          <p>Ce que la recherche dit vraiment sur le speed dating, les soupers de célibataires et les matchs — chaque chiffre vient d'une étude ou d'un organisateur identifiable, avec sa source.</p>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">60,7&nbsp;%</div>
+            <p>des participants à un speed dating repartent avec <strong>au moins un match mutuel</strong>.</p>
+            <p class="src">Source : <a href="http://www.larspenke.eu/pdfs/Asendorpf_Penke_Back_in_press_-_Speed_dating_mating_relating.pdf" target="_blank" rel="noopener">Asendorpf, Penke &amp; Back, <em>European Journal of Personality</em>, 2011</a> — 382 participants suivis pendant un an.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">1,28</div>
+            <p>match en moyenne <strong>par participant, en une seule soirée</strong> de speed dating.</p>
+            <p class="src">Source : <a href="http://www.larspenke.eu/pdfs/Asendorpf_Penke_Back_in_press_-_Speed_dating_mating_relating.pdf" target="_blank" rel="noopener">Asendorpf, Penke &amp; Back, 2011</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">16,5&nbsp;%</div>
+            <p>des mini-rendez-vous deviennent un match mutuel — <strong>environ 1 sur 6</strong> : sur 394 speed dates observés, 65 ont été des matchs.</p>
+            <p class="src">Source : <a href="https://www.umt.edu/news/2025/02/021125date.php" target="_blank" rel="noopener">Université du Montana (BOSS Lab), 2025</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">39&nbsp;%</div>
+            <p>des couples formés en 2017 se sont rencontrés en ligne — c'est devenu <strong>la façon la plus fréquente</strong> de rencontrer son partenaire.</p>
+            <p class="src">Source : <a href="https://news.stanford.edu/stories/2019/08/online-dating-popular-way-u-s-couples-meet" target="_blank" rel="noopener">Rosenfeld, Thomas &amp; Hausen (Université Stanford), <em>PNAS</em>, 2019</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">1 sur 10</div>
+            <p>des personnes en couple ont rencontré leur partenaire sur une application de rencontre — et <strong>1 sur 5 chez les moins de 30 ans</strong>.</p>
+            <p class="src">Source : <a href="https://www.pewresearch.org/short-reads/2023/02/02/key-findings-about-online-dating-in-the-u-s/" target="_blank" rel="noopener">Pew Research Center, 2023</a> — sondage auprès de 6 034 adultes.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Étude indépendante</span>
+            <div class="big">45&nbsp;%</div>
+            <p>des utilisateurs récents d'applications de rencontre se disent <strong>plus frustrés qu'optimistes</strong> après leur expérience — d'où l'intérêt de se rencontrer en personne.</p>
+            <p class="src">Source : <a href="https://www.pewresearch.org/short-reads/2020/02/06/10-facts-about-americans-and-online-dating/" target="_blank" rel="noopener">Pew Research Center, 2020</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind">Sondage</span>
+            <div class="big">55&nbsp;%</div>
+            <p>des célibataires canadiens n'ont eu <strong>aucun rendez-vous amoureux</strong> dans la dernière année.</p>
+            <p class="src">Source : <a href="https://newsroom.bmo.com/2026-02-11-In-This-Economy-BMO-Survey-Reveals-Half-of-Single-Canadians-Do-Not-Believe-Dating-is-Financially-Worth-It" target="_blank" rel="noopener">sondage Ipsos pour BMO, février 2026</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind org">Chiffre d'organisateur</span>
+            <div class="big">12 matchs</div>
+            <p>générés par le dernier <strong>souper de célibataires</strong> de Food Friends Love (« Dine &amp; Match »), à Montréal.</p>
+            <p class="src">Source : <a href="https://www.eventbrite.ca/e/dine-match-un-souper-plusieurs-rencontres-tickets-1979832184359?aff=ebdssbcitybrowse" target="_blank" rel="noopener">Food Friends Love, pages Eventbrite</a>.</p>
+          </article>
+
+          <article class="stat">
+            <span class="kind org">Chiffre d'organisateur</span>
+            <div class="big">98</div>
+            <p>personnes ont participé aux <strong>soupers pour célibataires Timeleft</strong> à Montréal en un seul mois (octobre 2026).</p>
+            <p class="src">Source : <a href="https://timeleft.com/fr/montreal/singles/" target="_blank" rel="noopener">Timeleft, 2026</a>.</p>
+          </article>
+        </div>
+
+        <p class="stats-note">Statistiques consultées le 24 novembre 2026 sur les pages des sources. Les chiffres marqués « Étude indépendante » proviennent de recherches universitaires ou d'instituts de sondage reconnus ; ceux marqués « Chiffre d'organisateur » sont publiés par les entreprises qui vendent ces événements.</p>
       </div>
     </section>
 
