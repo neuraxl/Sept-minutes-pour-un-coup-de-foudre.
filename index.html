@@ -441,6 +441,69 @@
 
       .hidden { display: none !important; }
 
+      /* ---------- Radio dating : bulle en haut de page ---------- */
+      .radio-top { display: flex; justify-content: center; padding: 26px 20px 2px; }
+      .radio-bubble-col { display: flex; flex-direction: column; align-items: center; gap: 7px; text-align: center; }
+      .radio-bubble {
+        width: 92px; height: 92px; border-radius: 50%;
+        border: 3px solid var(--gold);
+        background: radial-gradient(circle at 32% 28%, #b03a4e, var(--wine-deep));
+        color: #fff; display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer; box-shadow: 0 14px 30px rgba(94, 20, 36, 0.35);
+        transition: transform 0.15s ease;
+      }
+      .radio-bubble:hover { transform: translateY(-2px); }
+      .radio-bubble:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+      .radio-bubble.playing { animation: radio-pulse 1.8s ease-in-out infinite; }
+      @keyframes radio-pulse {
+        0%, 100% { box-shadow: 0 14px 30px rgba(94, 20, 36, 0.35), 0 0 0 0 rgba(169, 123, 36, 0.45); }
+        50% { box-shadow: 0 14px 30px rgba(94, 20, 36, 0.35), 0 0 0 15px rgba(169, 123, 36, 0); }
+      }
+      .radio-bubble-label { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 1.3rem; color: var(--wine); }
+      .radio-bubble-status { margin: 0; font-size: 0.9rem; color: var(--muted); max-width: 34em; }
+      @media (prefers-reduced-motion: reduce) {
+        .radio-bubble { transition: none; }
+        .radio-bubble.playing { animation: none; }
+      }
+
+      /* ---------- Bouton « date parfaite » ---------- */
+      .btn-date-parfaite {
+        flex-direction: column; gap: 1px; line-height: 1.25;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, var(--wine-btn), var(--wine-deep));
+        color: #fff; border: 2px solid var(--gold);
+        box-shadow: 0 12px 26px rgba(142, 36, 52, 0.35);
+      }
+      .btn-date-parfaite:hover { transform: translateY(-2px); }
+      .btn-date-parfaite .reserve-badge {
+        font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+        text-transform: uppercase; color: #f3d98b;
+      }
+
+      /* ---------- Inscription / devenir membre ---------- */
+      .membre-form input[type="text"], .membre-form input[type="email"],
+      .membre-form input[type="tel"], .membre-form select {
+        width: 100%; min-height: 48px; padding: 10px 14px;
+        border-radius: 12px; border: 2px solid var(--line);
+        background: var(--surface-2); color: var(--ink);
+        font-family: inherit; font-size: 1.05rem;
+      }
+      .membre-form input:focus, .membre-form select:focus { outline: 3px solid var(--gold); outline-offset: 2px; }
+      .frais-note {
+        margin-top: 18px; background: var(--gold-soft);
+        border: 1px solid var(--gold); border-radius: 12px;
+        padding: 12px 16px; font-size: 0.98rem;
+      }
+      .frais-note strong { color: var(--wine); }
+      .membre-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; font-size: 1rem; cursor: pointer; }
+      .membre-check input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--wine-btn); flex: none; cursor: pointer; }
+      .membre-confirmation { text-align: center; }
+      .membre-confirmation .big-heart { color: var(--rose); }
+      .membre-confirmation h3 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 10px 0 6px; }
+      .membre-confirmation p { color: var(--muted); max-width: 36em; margin: 0 auto 10px; }
+      .membre-confirmation p strong { color: var(--ink); }
+      .membre-numero { font-family: "Playfair Display", Georgia, serif; font-size: 1.7rem; font-weight: 800; color: var(--wine) !important; margin: 2px auto 12px !important; }
+
       @media (max-width: 860px) {
         .hero-grid { grid-template-columns: 1fr; padding: 40px 0 48px; gap: 30px; }
         .steps, .events, .stats-grid, .soupers-grid, .deroulement, .soupers-bas { grid-template-columns: 1fr; }
@@ -451,6 +514,18 @@
     </style>
   </head>
   <body>
+    <!-- ================= RADIO DATING (bulle, haut de page) ================= -->
+    <div class="radio-top">
+      <div class="radio-bubble-col">
+        <button type="button" class="radio-bubble" id="radio-toggle" aria-label="Écouter la radio dating" aria-pressed="false">
+          <svg id="radio-icon-play" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          <svg id="radio-icon-pause" class="hidden" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>
+        </button>
+        <span class="radio-bubble-label">radio dating</span>
+        <p class="radio-bubble-status" id="radio-status" role="status">La radio dating démarre automatiquement, volume 20&nbsp;%…</p>
+      </div>
+      <audio id="radio-audio" preload="auto" autoplay src="https://mfmwr-026.ice.infomaniak.ch/mfmwr-026.mp3"></audio>
+    </div>
     <!-- ================= HERO ================= -->
     <header class="hero">
       <svg class="float-heart" style="top:26px; right:6%;" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -461,6 +536,7 @@
           <h1>Sept minutes pour un <em>coup de foudre</em>.</h1>
           <p class="lead">Des soirées de rencontres en personne, dans une ambiance feutrée et romantique — un test de QI express pour hommes et femmes, puis un test d'amour en 10 questions qui ne vous montre que les profils qui correspondent vraiment à votre style amoureux.</p>
           <div class="cta-row">
+            <button type="button" class="btn btn-date-parfaite" id="btn-date-parfaite">Recherche la date parfaite à 100&nbsp;%<span class="reserve-badge">Réservé aux abonnées</span></button>
             <a class="btn btn-primary" href="#test">Passer le test d'amour</a>
             <a class="btn btn-ghost" href="#soirees">Voir les prochaines soirées</a>
           </div>
@@ -480,30 +556,6 @@
         </figure>
       </div>
     </header>
-
-    <!-- ================= RADIO ROMANTIQUE ================= -->
-    <div class="wrap">
-      <div class="radio-bar" id="radio-bar">
-        <button type="button" class="radio-play" id="radio-toggle" aria-label="Écouter M Radio Chansons d'amour" aria-pressed="false">
-          <svg id="radio-icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
-          <svg id="radio-icon-pause" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>
-        </button>
-        <div class="radio-info">
-          <p class="radio-station">M Radio Chansons d'amour<span class="onair"><span class="dot"></span><span id="radio-state">En pause</span></span><span class="radio-eq" aria-hidden="true"><span></span><span></span><span></span><span></span></span></p>
-          <p class="radio-desc">Radio romantique — chansons d'amour françaises, pour patienter en douceur avant la soirée.</p>
-        </div>
-        <div class="radio-volume">
-          <span class="vol-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9.5v5h3.6L12 19.6V4.4L6.6 9.5H3zm13.2 2.5c0-1.9-1-3.5-2.6-4.4v8.8c1.6-.9 2.6-2.5 2.6-4.4zm-2.6-7.9v2.1c2.9.8 5 3.4 5 6.8s-2.1 6-5 6.8v2.1c4-1 6.9-4.6 6.9-8.9s-2.9-7.9-6.9-8.9z"/></svg>
-          </span>
-          <label class="hidden" for="radio-volume">Volume de la radio</label>
-          <input type="range" id="radio-volume" min="0" max="100" step="1" value="80" aria-label="Volume de la radio" />
-          <span class="radio-vol-val" id="radio-vol-val" aria-hidden="true">80&nbsp;%</span>
-        </div>
-        <p class="radio-status" id="radio-status" role="status">Appuyez sur Lecture pour écouter la radio pendant votre visite.</p>
-        <audio id="radio-audio" preload="none" src="https://mfmwr-026.ice.infomaniak.ch/mfmwr-026.mp3"></audio>
-      </div>
-    </div>
 
     <!-- ================= COMMENT ÇA MARCHE ================= -->
     <section aria-labelledby="titre-fonctionnement">
@@ -876,9 +928,70 @@
           <a class="btn btn-primary" href="#test">Passer le test maintenant</a>
         </div>
 
+        <div class="locked-note hidden" id="profils-reserve">
+          <svg class="heart" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <h3>Recherche réservée aux abonnées</h3>
+          <p>Votre résultat est prêt, mais vos profils compatibles sont réservés aux membres inscrites. Devenez membre pour les découvrir — 25 $ en un seul paiement par soirée, payable à l'entrée.</p>
+          <a class="btn btn-primary" href="#inscription">Devenir membre</a>
+        </div>
+
         <div id="profils-zone" class="hidden">
           <p class="match-summary" id="match-resume"></p>
           <div class="profiles" id="profils-grille"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INSCRIPTION / DEVENIR MEMBRE ================= -->
+    <section class="membre-section" id="inscription" aria-labelledby="titre-inscription">
+      <div class="wrap">
+        <div class="section-head" style="margin-left:auto; margin-right:auto; text-align:center;">
+          <h2 id="titre-inscription">Devenir membre</h2>
+          <p>Réservez votre place à une soirée speed dating : <strong>25 $ en un seul paiement par soirée, payable à l'entrée</strong> — aucun paiement en ligne, aucun abonnement. Les membres ont aussi accès à la recherche de la date parfaite à 100 %.</p>
+        </div>
+
+        <div class="locked-note hidden" id="avis-inscription" style="margin-bottom:22px;">
+          <h3>Recherche réservée aux abonnées</h3>
+          <p>La recherche de la date parfaite à 100 % est réservée aux membres inscrites. Devenez membre ci-dessous pour y accéder : dès votre inscription complétée, la recherche se débloque automatiquement.</p>
+        </div>
+
+        <div class="test-card">
+          <form id="form-inscription" class="membre-form" novalidate>
+            <p class="field-label"><label for="ins-nom">Nom complet</label></p>
+            <input type="text" id="ins-nom" name="nom" autocomplete="name" required />
+            <p class="field-label"><label for="ins-courriel">Courriel</label></p>
+            <input type="email" id="ins-courriel" name="courriel" autocomplete="email" required />
+            <p class="field-label"><label for="ins-tel">Téléphone</label></p>
+            <input type="tel" id="ins-tel" name="telephone" autocomplete="tel" required />
+            <p class="field-label"><label for="ins-ville">Ville</label></p>
+            <input type="text" id="ins-ville" name="ville" autocomplete="address-level2" required />
+            <p class="field-label"><label for="ins-soiree">Soirée à réserver</label></p>
+            <select id="ins-soiree" name="soiree" required>
+              <option value="">— Choisissez votre soirée —</option>
+              <option value="montreal">Montréal — vendredi 27 novembre 2026 · Bistro Le Jardin, Vieux-Montréal</option>
+              <option value="quebec">Québec — vendredi 4 décembre 2026 · Café-bistro L'Écluse, Vieux-Québec</option>
+              <option value="longueuil">Longueuil — vendredi 11 décembre 2026 · Le Salon Rose, Vieux-Longueuil</option>
+            </select>
+            <div class="frais-note" id="frais-note">Frais d'inscription : <strong>25 $</strong> par soirée — un seul paiement, payable à l'entrée le soir même. Aucun paiement en ligne.</div>
+            <label class="membre-check"><input type="checkbox" id="ins-age21" required /> <span>Je confirme avoir 21 ans ou plus.</span></label>
+            <p class="form-error" id="erreur-inscription" role="alert"></p>
+            <div class="start-row">
+              <button type="submit" class="btn btn-primary">Réserver ma place — 25 $ à l'entrée</button>
+            </div>
+            <p class="test-intro-note">En cliquant sur « Réserver ma place », un courriel pré-rempli s'ouvrira dans votre messagerie pour transmettre votre inscription à l'organisateur. Aucune donnée d'inscription n'est affichée publiquement sur ce site.</p>
+          </form>
+
+          <div id="confirmation-inscription" class="membre-confirmation hidden">
+            <svg class="big-heart" width="44" height="44" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <h3>Inscription reçue !</h3>
+            <p>Votre numéro de membre :</p>
+            <p class="membre-numero" id="conf-numero"></p>
+            <p id="conf-detail"></p>
+            <p class="test-intro-note">Un courriel pré-rempli vient de s'ouvrir dans votre messagerie : envoyez-le pour transmettre votre inscription à l'organisateur. Le soir de l'événement, présentez-vous à l'entrée avec vos 25 $.</p>
+            <div class="result-actions">
+              <button type="button" class="btn btn-date-parfaite" id="btn-conf-recherche">Rechercher ma date parfaite à 100&nbsp;%</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1224,6 +1337,16 @@
 
         /* ---------- Recherche par résultats : profils correspondants seulement ---------- */
         function afficherProfilsCompatibles(scores, dom) {
+          /* Verrou membres : la recherche de profils est réservée aux abonnées.
+             Le dernier résultat est mémorisé pour être réaffiché dès l'inscription. */
+          window.__smDernierResultat = { scores: scores, dom: dom };
+          if (!document.body.classList.contains("est-abonnee")) {
+            $("profils-verrouilles").classList.add("hidden");
+            $("profils-zone").classList.add("hidden");
+            $("profils-reserve").classList.remove("hidden");
+            return;
+          }
+          $("profils-reserve").classList.add("hidden");
           var candidats = PROFILS
             .filter(function (p) { return p.genre === etat.jeRecherche; })
             .map(function (p) { return { profil: p, pct: compatibilite(scores, p.vecteur) }; })
@@ -1304,12 +1427,20 @@
           });
         }
 
+        /* Dès l'inscription complétée, les profils se débloquent automatiquement. */
+        document.addEventListener("sm:abonnee", function () {
+          var d = window.__smDernierResultat;
+          if (d) { afficherProfilsCompatibles(d.scores, d.dom); }
+        });
+
         /* ---------- Refaire le test ---------- */
         $("btn-refaire").addEventListener("click", function () {
           etat.question = 0;
           etat.reponses = [];
           $("etape-resultat").classList.add("hidden");
           $("profils-zone").classList.add("hidden");
+          $("profils-reserve").classList.add("hidden");
+          window.__smDernierResultat = null;
           $("profils-verrouilles").classList.remove("hidden");
           $("etape-profil").classList.remove("hidden");
           $("test").scrollIntoView({ behavior: "smooth" });
@@ -1439,40 +1570,48 @@
       (function () {
         "use strict";
         var audio = document.getElementById("radio-audio");
-        var bar = document.getElementById("radio-bar");
         var toggle = document.getElementById("radio-toggle");
         var iconPlay = document.getElementById("radio-icon-play");
         var iconPause = document.getElementById("radio-icon-pause");
-        var state = document.getElementById("radio-state");
         var status = document.getElementById("radio-status");
-        var slider = document.getElementById("radio-volume");
-        var volVal = document.getElementById("radio-vol-val");
-        if (!audio || !toggle || !slider) return;
+        if (!audio || !toggle) return;
 
-        function syncVolume() {
-          audio.volume = slider.value / 100;
-          volVal.textContent = slider.value + " %";
-        }
-        syncVolume();
-        slider.addEventListener("input", syncVolume);
+        /* Volume forcé à 20 % dès le départ. */
+        audio.volume = 0.2;
 
         function setPlayingUI(playing) {
-          bar.classList.toggle("playing", playing);
+          toggle.classList.toggle("playing", playing);
           iconPlay.classList.toggle("hidden", playing);
           iconPause.classList.toggle("hidden", !playing);
           toggle.setAttribute("aria-pressed", playing ? "true" : "false");
-          toggle.setAttribute("aria-label", playing ? "Mettre la radio en pause" : "Écouter M Radio Chansons d'amour");
-          state.textContent = playing ? "En direct" : "En pause";
+          toggle.setAttribute("aria-label", playing ? "Mettre la radio dating en pause" : "Écouter la radio dating");
         }
 
+        function tenterLecture(messageEchec) {
+          var p = audio.play();
+          if (p && typeof p.catch === "function") {
+            p.catch(function () {
+              if (messageEchec) { status.textContent = messageEchec; }
+            });
+          }
+        }
+
+        /* Départ automatique ; si le navigateur bloque le son automatique,
+           la radio part au premier geste (pointerdown / keydown) sur la page. */
+        tenterLecture("Le son automatique est bloqué par votre navigateur : touchez la bulle radio dating pour lancer l'écoute.");
+        function departAuPremierGeste(e) {
+          if (e && e.target && toggle.contains(e.target)) { return; }
+          if (audio.paused) { tenterLecture(null); }
+          document.removeEventListener("pointerdown", departAuPremierGeste);
+          document.removeEventListener("keydown", departAuPremierGeste);
+        }
+        document.addEventListener("pointerdown", departAuPremierGeste);
+        document.addEventListener("keydown", departAuPremierGeste);
+
+        /* Un clic sur la bulle : pause / reprise. */
         toggle.addEventListener("click", function () {
           if (audio.paused) {
-            var p = audio.play();
-            if (p && typeof p.catch === "function") {
-              p.catch(function () {
-                status.textContent = "La lecture n'a pas pu démarrer. Vérifiez votre connexion, puis réessayez.";
-              });
-            }
+            tenterLecture("La lecture n'a pas pu démarrer. Vérifiez votre connexion, puis réessayez.");
           } else {
             audio.pause();
           }
@@ -1480,16 +1619,118 @@
 
         audio.addEventListener("playing", function () {
           setPlayingUI(true);
-          status.textContent = "Vous écoutez M Radio Chansons d'amour — chansons d'amour françaises en direct.";
+          status.textContent = "Vous écoutez la radio dating — chansons d'amour françaises en direct, volume 20 %.";
         });
         audio.addEventListener("pause", function () {
           setPlayingUI(false);
-          status.textContent = "Radio en pause. Appuyez sur Lecture pour reprendre l'écoute.";
+          status.textContent = "Radio dating en pause. Cliquez sur la bulle pour reprendre l'écoute.";
         });
         audio.addEventListener("error", function () {
           setPlayingUI(false);
           status.textContent = "Le flux de la radio est momentanément indisponible. Réessayez dans un instant.";
         });
+      })();
+    </script>
+    <script>
+      (function () {
+        "use strict";
+        var form = document.getElementById("form-inscription");
+        if (!form) return;
+
+        var SOIREES = {
+          montreal: "Montréal — vendredi 27 novembre 2026, Bistro Le Jardin, Vieux-Montréal (19 h à 22 h)",
+          quebec: "Québec — vendredi 4 décembre 2026, Café-bistro L'Écluse, Vieux-Québec (19 h à 22 h)",
+          longueuil: "Longueuil — vendredi 11 décembre 2026, Le Salon Rose, Vieux-Longueuil (19 h à 22 h)"
+        };
+        var prochainNumero = 100 + Math.floor(Math.random() * 800);
+
+        var erreur = document.getElementById("erreur-inscription");
+        var selectSoiree = document.getElementById("ins-soiree");
+        var fraisNote = document.getElementById("frais-note");
+
+        function majFrais() {
+          var v = selectSoiree.value;
+          if (v && SOIREES[v]) {
+            fraisNote.innerHTML = "Soirée choisie : <strong>" + SOIREES[v] + "</strong><br />Frais d'inscription : <strong>25 $</strong> — un seul paiement, payable à l'entrée le soir même. Aucun paiement en ligne.";
+          } else {
+            fraisNote.innerHTML = "Frais d'inscription : <strong>25 $</strong> par soirée — un seul paiement, payable à l'entrée le soir même. Aucun paiement en ligne.";
+          }
+        }
+        selectSoiree.addEventListener("change", majFrais);
+        majFrais();
+
+        function afficherErreur(msg) {
+          erreur.textContent = msg;
+          erreur.classList.add("show");
+          erreur.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          erreur.classList.remove("show");
+          var nom = document.getElementById("ins-nom").value.trim();
+          var courriel = document.getElementById("ins-courriel").value.trim();
+          var tel = document.getElementById("ins-tel").value.trim();
+          var ville = document.getElementById("ins-ville").value.trim();
+          var soiree = selectSoiree.value;
+          var age21 = document.getElementById("ins-age21").checked;
+
+          if (!nom) { afficherErreur("Merci d'indiquer votre nom."); return; }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(courriel)) { afficherErreur("Merci d'indiquer un courriel valide."); return; }
+          if (!tel) { afficherErreur("Merci d'indiquer votre numéro de téléphone."); return; }
+          if (!ville) { afficherErreur("Merci d'indiquer votre ville."); return; }
+          if (!soiree || !SOIREES[soiree]) { afficherErreur("Merci de choisir la soirée à réserver."); return; }
+          if (!age21) { afficherErreur("Vous devez confirmer avoir 21 ans ou plus pour vous inscrire."); return; }
+
+          prochainNumero += 1;
+          var numero = "SM-2026-" + prochainNumero;
+
+          /* Déblocage immédiat de la recherche réservée aux abonnées. */
+          document.body.classList.add("est-abonnee");
+          document.dispatchEvent(new CustomEvent("sm:abonnee"));
+
+          document.getElementById("conf-numero").textContent = numero;
+          document.getElementById("conf-detail").innerHTML =
+            "Merci <strong>" + nom.replace(/[<>&]/g, "") + "</strong> ! Votre place est réservée pour la soirée <strong>" + SOIREES[soiree] + "</strong>.<br />" +
+            "Frais d'inscription : <strong>25 $</strong>, un seul paiement, payable à l'entrée.";
+          form.classList.add("hidden");
+          var conf = document.getElementById("confirmation-inscription");
+          conf.classList.remove("hidden");
+          conf.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          /* Site statique : l'inscription est transmise par un courriel
+             pré-rempli adressé à l'organisateur. */
+          var corps =
+            "Nouvelle inscription — Sept Minutes pour un coup de foudre\n" +
+            "Numéro de membre : " + numero + "\n" +
+            "Nom : " + nom + "\n" +
+            "Courriel : " + courriel + "\n" +
+            "Téléphone : " + tel + "\n" +
+            "Ville : " + ville + "\n" +
+            "Soirée réservée : " + SOIREES[soiree] + "\n" +
+            "Frais d'inscription : 25 $ (un seul paiement, payable à l'entrée)\n" +
+            "Confirmation : la personne déclare avoir 21 ans ou plus.";
+          window.location.href = "mailto:savardrjr@gmail.com" +
+            "?subject=" + encodeURIComponent("Inscription Sept Minutes") +
+            "&body=" + encodeURIComponent(corps);
+        });
+
+        function allerRecherche() {
+          if (document.body.classList.contains("est-abonnee")) {
+            if (window.__smDernierResultat) {
+              document.getElementById("resultats").scrollIntoView({ behavior: "smooth" });
+            } else {
+              document.getElementById("test").scrollIntoView({ behavior: "smooth" });
+            }
+          } else {
+            document.getElementById("avis-inscription").classList.remove("hidden");
+            document.getElementById("inscription").scrollIntoView({ behavior: "smooth" });
+          }
+        }
+        var btnDate = document.getElementById("btn-date-parfaite");
+        if (btnDate) { btnDate.addEventListener("click", allerRecherche); }
+        var btnConf = document.getElementById("btn-conf-recherche");
+        if (btnConf) { btnConf.addEventListener("click", allerRecherche); }
       })();
     </script>
   
